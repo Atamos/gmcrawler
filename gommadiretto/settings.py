@@ -28,8 +28,12 @@ DOWNLOAD_DELAY = 0.50
 #USER_AGENT = 'gommadiretto (+http://www.yourdomain.com)'
 DOWNLOADER_MIDDLEWARES = {
         'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware' : None,
-        'gommadiretto.rotate_useragent.RotateUserAgentMiddleware' :400
+        'gommadiretto.rotate_useragent.RotateUserAgentMiddleware' :400,
+        'gommadiretto.middlewares.ProxyMiddleware': 410,
 }
+
+#Uncomment this line if you want run crawler across tor network
+#HTTP_PROXY = 'http://127.0.0.1:8123'
 
 #ITEM_PIPELINES = {'scrapy.contrib.pipeline.images.ImagesPipeline': 1}
 ITEM_PIPELINES = {'scrapy.contrib.pipeline.images.ImagesPipeline': 1,
