@@ -32,6 +32,16 @@ def filter_br(v):
 	return v2
 
 
+class DisponibilityItem(Item):
+	title = Field(
+    	input_processor=MapCompose(unicode.strip,filter_word),
+    	output_processor=Join()
+	)
+	name = Field()
+	disponibility = Field()
+
+
+
 class GommadirettoItem(Item):
     # define the fields for your item here like:
     # name = Field()
