@@ -9,6 +9,7 @@ from scrapy.http import Request
 
 class GommadirettoPipeline(object):
     def process_item(self, item, spider):
-    	item['image_paths'] = item['images'][0]['path'] 
+    	if('images' in item.keys()):
+    		item['image_paths'] = item['images'][0]['path'] 
         return item
 
