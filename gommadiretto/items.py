@@ -37,8 +37,14 @@ class DisponibilityItem(Item):
     	input_processor=MapCompose(unicode.strip,filter_word),
     	output_processor=Join()
 	)
-	name = Field()
-	disponibility = Field()
+	name = Field(
+		input_processor=MapCompose(unicode.strip,filter_word),
+    	output_processor=Join()
+	)
+	disponibility = Field(
+		input_processor=MapCompose(unicode.strip,filter_word),
+    	output_processor=Join()
+	)
 
 
 

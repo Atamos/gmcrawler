@@ -14,14 +14,14 @@ from scrapy.contrib.loader import ItemLoader
 class GmSpider(CrawlSpider):
 	name = "gm"
 	domain_name = "gommadiretto.it"
-	
+
 	#start_urls = ["http://www.gommadiretto.it/cgi-bin/rshop.pl?dsco=130&cart_id=9963841.130.4327&sowigan=So&Breite=205&Quer=55&Felge=16&Speed=&kategorie=6&Marke=&ranzahl=4&tyre_for=&x_tyre_for=&suchen=Trova%20pneumatici&rsmFahrzeugart=PKW&search_tool=standard&Ang_pro_Seite=5"]
 	#start_urls = ["http://www.gommadiretto.it/cgi-bin/rshop.pl?m_s=3&Ang_pro_Seite=5&rsmFahrzeugart=PKW&s_p=Tutti&cart_id=9963841.130.4327&x_tyre_for=&search_tool=standard&dsco=130&tyre_for=&suchen=Trova+pneumatici&with_bootstrap_flag=1&ranzahl=4&sowigan=&Breite=145&Quer=70&Felge=12&Speed=&Load=&Marke=&kategorie=6&filter_preis_von=&filter_preis_bis=&homologation="]
 	#start_urls = ["http://www.gommadiretto.it/cgi-bin/rshop.pl?dsco=130&cart_id=9963841.130.4327&Breite=145&Quer=70&Felge=12&Speed=&Load=&kategorie=6&Marke=&ranzahl=4&tyre_for=&x_tyre_for=&m_s=3&Ang_pro_Seite=5&rsmFahrzeugart=PKW&filter_preis_bis=&filter_preis_von=&homologation=&search_tool=standard&Label=G-E-70-2&details=Ordern&typ=R-123525"]
 
 	rules = (
 		Rule(SgmlLinkExtractor(allow=('cgi-bin\/rshop.pl\?.*typ=[-0-9a-zA-Z]*$')),callback='parse_item'),
-		#Rule(SgmlLinkExtractor(restrict_xpaths=('//a[@id="ajax_suchergebnisliste_goto_next"]',)))
+		Rule(SgmlLinkExtractor(restrict_xpaths=('//a[@id="ajax_suchergebnisliste_goto_next"]',)))
 	)
 
 	def __init__(self,name=None,dim1=None,dim2=None,dim3=None,paging=5,**kwargs):
