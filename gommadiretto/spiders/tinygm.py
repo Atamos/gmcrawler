@@ -39,12 +39,13 @@ class TinyGmSpider(CrawlSpider):
         sel = HtmlXPathSelector(response)
         
         products = []
+        l = ItemLoader(item=GommadirettoItem(),response=response)       
+
         items = sel.xpath("//div[@id='ajax_suchergebnisliste']/*[div]")
 
         for product in items:
             log.msg('parsing')
-            i =  DisponibilityItem()
-            i['name'] = product.xpath('.//a[1]/@name').extract();
-            i['disponibility'] = product.xpath('.//div/div/div[5]/div[1]/text()').extract()
-            products.append(i);
+            l.add_xpath('name','.//a[1]/@name')
+            l.add_xpath('disponibility','.//div/div/div[5]/div[1]/text()')
+            products.append(l.load_item());
         return products
