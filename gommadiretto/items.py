@@ -79,6 +79,9 @@ class GommadirettoItem(Item):
     link = Field()
     image_urls = Field()
     images = Field()
+    size1 = Field()
+    size2 = Field()
+    size3 = Field()
     image_paths = Field()
 
 

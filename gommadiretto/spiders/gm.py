@@ -8,7 +8,7 @@ from scrapy.log import ScrapyFileLogObserver
 from scrapy import log
 from scrapy.contrib.loader.processor import TakeFirst, MapCompose, Join
 from scrapy.contrib.loader import ItemLoader
-
+import re
 
 
 class GmSpider(CrawlSpider):
@@ -62,7 +62,20 @@ class GmSpider(CrawlSpider):
 			l.add_xpath('ue',".//*[@id='detail-page']/div[2]/div[3]/div[4]/div[2]/div[1]//text()");#.re("([A-Z]) *, *([A-Z]) *, *([A-Za-z0-9]*) ([a-z]*[^,])");#,re="([A-Z]) *, *([A-Z]) *, *([A-Za-z0-9]*) ([a-z]*[^,])")
 
 		l.add_xpath('price',".//*[@id='detail-page']/div[3]/div[1]/div[1]/span/b/i[@itemprop=\"price\"]/text()")
- 		l.add_xpath('size',".//*[@id='inhalt_site_content']/div/span[4]/span/a/text()")		
+ 		#l.add_xpath('size',".//*[@id='inhalt_site_content']/div/span[4]/span/a/text()")	
+ 		size = sel.xpath(".//*[@id='inhalt_site_content']/div/span[4]/span/a/text()").extract()[0]	
+ 		#l.add_value('size1',size.re('/[0-9]*/'))
+ 		
+ 		l2 = re.compile("([0-9]*)/([0-9]*)(.*)").split(size)
+ 		log.msg(size)
+ 		log.msg('PRE')
+ 		log.msg( ', '.join(l2))
+ 		log.msg(l2[1])
+ 		log.msg(l2[2])
+ 		log.msg(l2[3])
+ 		log.msg('POST')
+ 		
+
 		#l.add_xpath('tlong',".//*[@id='reifendetails_tabs-0']/p//text()")
 		l.add_xpath('tlong',".//*[@id='reifendetails_tabs-0']/p")
 		l.add_xpath('name',".//*[@id='detail-page']/@data-item_id")
@@ -71,6 +84,10 @@ class GmSpider(CrawlSpider):
 
 		l.add_value("image_urls",link)
 
+		l.add_value('size1',l2[1])
+		l.add_value('size2',l2[2])
+		l.add_value('size3',l2[3])
+		
 		#l.add_value('link',response.url)
 		
 		return l.load_item()
